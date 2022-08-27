@@ -37,6 +37,13 @@ if [[ $- == *i* ]] && tty -s; then
                 SetupOwnSsh;
                 HelpText "-----------------"
 
+                ## PS1 ##
+                if [[ -f $CONFIG_DIR/ps1.sh ]]; then
+                    HelpText "---- PS1 ----"
+                    source $CONFIG_DIR/ps1.sh
+                    HelpText "-----------------"
+                fi
+
             else
                 echo "script funcs missing :("
             fi
