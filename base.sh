@@ -3,7 +3,7 @@
 #############################################
 
 export MATTS_CONFIG="ENABLED"
-export CONFIG_DIR=$HOME/config
+export CONFIG_DIR=$HOME/.matt_config
 
 
 if [[ "$1" == "-help" ]]; then
