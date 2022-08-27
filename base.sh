@@ -16,6 +16,7 @@ else
         source $CONFIG_DIR/script_funcs.sh
     else
         echo "script funcs missing :("
+        exit 0
     fi
 fi #if config dir exists
 
