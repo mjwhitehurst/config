@@ -3,7 +3,7 @@
 #############################################
 
 export MATTS_CONFIG="ENABLED"
-export CONFIG_DIR=$HOME/config
+export CONFIG_DIR=$HOME/.matt_config
 
 
 if [[ "$1" == "-help" ]]; then
@@ -36,6 +36,13 @@ if [[ $- == *i* ]] && tty -s; then
                 HelpText "---- SSH ----"
                 SetupOwnSsh;
                 HelpText "-----------------"
+
+                ## PS1 ##
+                if [[ -f $CONFIG_DIR/ps1.sh ]]; then
+                    HelpText "---- PS1 ----"
+                    source $CONFIG_DIR/ps1.sh
+                    HelpText "-----------------"
+                fi
 
             else
                 echo "script funcs missing :("
