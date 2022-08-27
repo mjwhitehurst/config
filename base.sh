@@ -6,17 +6,47 @@ export MATTS_CONFIG="ENABLED"
 export CONFIG_DIR=$HOME/config
 
 
-
-
-
-if [[ ! -d $CONFIG_DIR ]]; then
-    echo "config dir missing! all config stuff needs to be in \$HOME/config"
+if [[ "$1" == "-help" ]]; then
+    export DISPLAY_HELP=$1
 else
-    if [[ -f $CONFIG_DIR/script_funcs.sh ]]; then
-        source $CONFIG_DIR/script_funcs.sh
+    export DISPLAY_HELP=""
+fi
+
+
+
+if [[ $- == *i* ]] && tty -s; then
+    if [[ -d $CONFIG_DIR ]]; then
+        if [[ -f $CONFIG_DIR/shell_colours.sh ]]; then
+            if [[ -f $CONFIG_DIR/script_funcs.sh ]]; then
+                #Basic script functions - printing etc. assumed colours are set up.
+                source $CONFIG_DIR/script_funcs.sh
+                ## Main Setup here? ##
+
+                HelpText "===== Got Colours and base functions, beginning actual setup ====="
+
+                ## Sort out my useful aliases
+                if [[ -f $CONFIG_DIR/aliases.sh ]]; then
+                    HelpText "---- Aliases ----"
+                    source $CONFIG_DIR/aliases.sh
+                    HelpText "-----------------"
+                fi
+
+
+                ## Set up SSH ##
+                HelpText "---- SSH ----"
+                SetupOwnSsh;
+                HelpText "-----------------"
+
+            else
+                echo "script funcs missing :("
+            fi
+        else
+            echo "script colours missing :("
+        fi
     else
-        echo "script funcs missing :("
-        exit 0
-    fi
-fi #if config dir exists
+        echo "config dir missing! all config stuff needs to be in \$HOME/config"
+    fi #if config dir exists
+else
+    echo " --- noninteractive session ---"
+fi
 
